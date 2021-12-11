@@ -1,4 +1,9 @@
 package io.tral909
 
-class BlogPost {
-}
+data class BlogPost(
+    val id: Int,
+    val title: String,
+    val content: String,
+    val createdAt: Long = System.currentTimeMillis(),
+    val modifiedAt: Long
+)
