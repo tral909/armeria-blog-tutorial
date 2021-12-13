@@ -12,7 +12,9 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-    implementation "com.linecorp.armeria:armeria:1.13.4"
+    //for kotlin dto serialization/deserialization
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'com.linecorp.armeria:armeria:1.13.4'
 
     // Logging
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.7'

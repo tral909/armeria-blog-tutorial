@@ -5,5 +5,5 @@ data class BlogPost(
     val title: String,
     val content: String,
     val createdAt: Long = System.currentTimeMillis(),
-    val modifiedAt: Long
+    val modifiedAt: Long = System.currentTimeMillis()
 )
