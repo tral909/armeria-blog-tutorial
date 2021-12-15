@@ -17,6 +17,9 @@ class Main {
                 .exampleRequests(BlogService::class.java,
                 "createBlogPost",
                     "{\"title\":\"My first blog\", \"content\":\"Hello Armeria!\"}")
+                .exampleRequests(BlogService::class.java,
+                    "updateBlogPost",
+                    "{\"title\":\"My updated blog\", \"content\":\"Hello new Armeria!\"}")
                 .build()
 
             return sb.http(port)
