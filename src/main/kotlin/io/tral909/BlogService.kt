@@ -2,7 +2,10 @@ package io.tral909
 
 import com.linecorp.armeria.common.HttpResponse
 import com.linecorp.armeria.common.HttpStatus
+import com.linecorp.armeria.server.annotation.Blocking
 import com.linecorp.armeria.server.annotation.Default
+import com.linecorp.armeria.server.annotation.Delete
+import com.linecorp.armeria.server.annotation.ExceptionHandler
 import com.linecorp.armeria.server.annotation.Get
 import com.linecorp.armeria.server.annotation.Param
 import com.linecorp.armeria.server.annotation.Post
@@ -11,7 +14,6 @@ import com.linecorp.armeria.server.annotation.Put
 import com.linecorp.armeria.server.annotation.RequestConverter
 import com.linecorp.armeria.server.annotation.RequestObject
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.NoSuchElementException
 
 
 class BlogService {
@@ -25,8 +27,10 @@ class BlogService {
     }
 
     @Get("/blogs/:id")
-    fun getBlogPost(@Param("id") id: Int): HttpResponse =
-        HttpResponse.ofJson(blogPosts[id] ?: HttpStatus.NOT_FOUND)
+    fun getBlogPost(@Param("id") id: Int): HttpResponse {
+        val blogPost = blogPosts[id] ?: return HttpResponse.of(HttpStatus.NOT_FOUND)
+        return HttpResponse.ofJson(blogPost)
+    }
 
     @Get("/blogs")
     @ProducesJson // надо для возврата массива объектов
@@ -48,5 +52,13 @@ class BlogService {
         val newBlogPost = BlogPost(id, blogPost.title, blogPost.content, oldBlogPost.createdAt, blogPost.createdAt)
         blogPosts[id] = newBlogPost
         return HttpResponse.ofJson(newBlogPost)
+    }
+
+    @Blocking
+    @Delete("/blogs/:id")
+    @ExceptionHandler(BlogRequestExceptionHandler::class)
+    fun deleteBlogPost(@Param("id") id: Int): HttpResponse {
+        val removed = blogPosts.remove(id) ?: throw IllegalArgumentException("The blog post does not exist. id: $id")
+        return HttpResponse.of(HttpStatus.NO_CONTENT)
     }
 }
