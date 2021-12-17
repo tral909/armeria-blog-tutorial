@@ -31,7 +31,7 @@ class Main {
 
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val server: Server = Main.newServer(8080)
     Runtime.getRuntime().addShutdownHook(Thread {
         server.stop().join()

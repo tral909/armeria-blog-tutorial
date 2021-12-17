@@ -12,15 +12,25 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-    //for kotlin dto serialization/deserialization
+    // Kotlin dto serialization/deserialization
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'com.linecorp.armeria:armeria:1.13.4'
 
     // Logging
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.7'
     runtimeOnly 'org.slf4j:log4j-over-slf4j:1.7.32'
+
+    // Testing
+    testImplementation 'com.linecorp.armeria:armeria-junit5:1.13.3'
+    testImplementation 'net.javacrumbs.json-unit:json-unit-fluent:2.27.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 application {
     mainClass = 'io.tral909.MainKt'
+}
+
+test {
+    useJUnitPlatform()
 }

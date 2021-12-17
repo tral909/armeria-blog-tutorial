@@ -58,7 +58,7 @@ class BlogService {
     @Delete("/blogs/:id")
     @ExceptionHandler(BlogRequestExceptionHandler::class)
     fun deleteBlogPost(@Param("id") id: Int): HttpResponse {
-        val removed = blogPosts.remove(id) ?: throw IllegalArgumentException("The blog post does not exist. id: $id")
+        blogPosts.remove(id) ?: throw IllegalArgumentException("The blog post does not exist. id: $id")
         return HttpResponse.of(HttpStatus.NO_CONTENT)
     }
 }
