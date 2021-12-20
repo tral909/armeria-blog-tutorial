@@ -49,7 +49,7 @@ class BlogService {
     @Put("/blogs/:id")
     fun updateBlogPost(@Param("id") id: Int, @RequestObject blogPost: BlogPost): HttpResponse {
         val oldBlogPost: BlogPost = blogPosts[id] ?: return HttpResponse.of(HttpStatus.NOT_FOUND)
-        val newBlogPost = BlogPost(id, blogPost.title, blogPost.content, oldBlogPost.createdAt, blogPost.createdAt)
+        val newBlogPost = BlogPost(id, blogPost.title, blogPost.content, oldBlogPost.createdAt, System.currentTimeMillis())
         blogPosts[id] = newBlogPost
         return HttpResponse.ofJson(newBlogPost)
     }

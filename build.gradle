@@ -12,8 +12,8 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-    // Kotlin dto serialization/deserialization
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    // Kotlin dto serialization/deserialization to avoid jsoncreator and jsonproperty, but for tests doesn't work
+    //implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'com.linecorp.armeria:armeria:1.13.4'
 
     // Logging
